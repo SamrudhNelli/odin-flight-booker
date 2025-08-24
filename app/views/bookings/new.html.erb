@@ -1,0 +1,26 @@
+<h1> Add Passenger Details </h2>
+<div>
+<%= form_with url: '/bookings/new', method: :get do |form| %>
+<%=     form.select :size, 1..10 , selected: params[:size] %>
+<%=     form.submit %>
+<%  end %>
+</div><br><br>
+<%= form_with model: @booking do |form| %>
+<%=     form.fields_for :passengers do |pform| %><div>
+<%=         pform.label :name, "Passenger Name " %>
+<%=         pform.text_field :name %><br>
+<%=         pform.label :email, "Email Address " %>
+<%=         pform.email_field :email %><br>
+<%=         pform.label :age, "Age " %>
+<%=         pform.number_field :age %><br><br></div>
+<%      end %>
+<%=     form.checkbox :confirm %>
+<%=     form.label :confirm, "I confirm the above details" %><br><br>
+<%=     form.hidden_field :flight_id, value: @booking.flight_id %>
+<%=     form.submit "Save Booking" %>
+<%  end %>
+<br><br><ul>
+<%= @booking.errors.full_messages.each do |error|%>
+<li><%=     error %></li>
+<% end %>
+</ul>

@@ -1,0 +1,31 @@
+<h1> Put your SeatBelts on, and ready up for TAKEOFF.. </h1><br><BR>
+<h2> Search for flights.. </h2><br>
+<%=  form_with url: '/flights', method: :get do |form|%>
+<div> Select date..
+<%=      form.date_select :departs_at, start_year: Date.current.year, end_year: Date.current.year+1 %><br><br></div>
+<div> Select the airports you want to travel to and from
+<%=      form.collection_select :depart_airport_id, Airport.order(:name), :id, :name, selected: params[:depart_airport_id] %>
+<%=      form.collection_select :arrival_airport_id, Airport.order(:name), :id, :name, selected: params[:arrival_airport_id] %>
+<%=     form.submit %>
+<%   end  %>
+<br><br>
+<% if @display != 0 %>
+  <% if @flights.any? %>
+    <% if @display == 1 %>
+    <h2>Available Flights</h2>
+    <% else %>
+    <h2>Exact flight not found, similar Flights..</h2>
+    <% end %>
+    <%= form_with url: '/bookings/new', method: :get do |form| %>
+    <%=    form.collection_radio_buttons :flight_id, @flights.order(:id), :id, :print_flight_details %><br><br>
+    <%=    form.submit %>
+    <% end %>
+    </ul>
+  <% else %>
+    <h2>Flights not found:(</h2>
+  <% end %>
+<% else %>
+  <h2>Select travel date and airports to get started..</h2>
+<% end %>
+
+

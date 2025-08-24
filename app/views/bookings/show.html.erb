@@ -1,0 +1,15 @@
+<h1> Wishing you a happy journey!! </h1>
+<br><br>
+<h2> Your Booking Detaials.. </h2><br>
+<i><br>Flight Details..<br></i>
+Booking id : <%= @booking.id %><br>
+Departing airport : <%= @booking.flight.depart_airport.name %><br>
+Departs at : <%= @booking.flight.departs_at %><br>
+Arrival airport : <%= @booking.flight.arrival_airport.name %><br>
+Arrives at : <%= @booking.flight.arrives_at %><br>
+<i><br>Personal Details<br></i>
+No. of Passengers : <%= @booking.passengers.count %><br>
+<ul> <% @booking.passengers.each do |p| %>
+<li> <%=     p.name %> </li>
+<% end %>
+</ul><br>
